@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cool Calculator</title>
+  <style>
+    /* Modern design */
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #1a1a1a;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .calculator {
+      background: #2d2d2d;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      width: 300px;
+    }
+
+    #display {
+      background: #3d3d3d;
+      padding: 20px;
+      font-size: 24px;
+      text-align: right;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      border: none;
+      color: white;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    button {
+      padding: 15px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #4d4d4d;
+      color: white;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #5d5d5d;
+    }
+
+    .operator {
+      background: #ff9500;
+    }
+
+    .operator:hover {
+      background: #ffaa33;
+    }
+
+    #quote {
+      margin-top: 20px;
+      text-align: center;
+      font-style: italic;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" id="display" readonly>
+    <div class="buttons">
+      <button onclick="clearDisplay()">C</button>
+      <button onclick="appendToDisplay('(')">(</button>
+      <button onclick="appendToDisplay(')')">)</button>
+      <button class="operator" onclick="appendToDisplay('/')">/</button>
+      <button onclick="appendToDisplay('7')">7</button>
+      <button onclick="appendToDisplay('8')">8</button>
+      <button onclick="appendToDisplay('9')">9</button>
+      <button class="operator" onclick="appendToDisplay('*')">×</button>
+      <button onclick="appendToDisplay('4')">4</button>
+      <button onclick="appendToDisplay('5')">5</button>
+      <button onclick="appendToDisplay('6')">6</button>
+      <button class="operator" onclick="appendToDisplay('-')">-</button>
+      <button onclick="appendToDisplay('1')">1</button>
+      <button onclick="appendToDisplay('2')">2</button>
+      <button onclick="appendToDisplay('3')">3</button>
+      <button class="operator" onclick="appendToDisplay('+')">+</button>
+      <button onclick="appendToDisplay('0')">0</button>
+      <button onclick="appendToDisplay('.')">.</button>
+      <button onclick="calculate()" style="grid-column: span 2;">=</button>
+    </div>
+    <div id="quote"></div>
+  </div>
+
+  <script>
+    // Calculator logic
+    let display = document.getElementById('display');
+    
+    function appendToDisplay(value) {
+      display.value += value;
+    }
+
+    function clearDisplay() {
+      display.value = '';
+      showRandomQuote(); // Show a quote when cleared
+    }
+
+    function calculate() {
+      try {
+        display.value = eval(display.value);
+        showRandomQuote(); // Show a quote after calculation
+      } catch (error) {
+        display.value = 'Error';
+      }
+    }
+
+    // Random quotes logic
+    const quotes = [
+      "The only way to do great work is to love what you do. – Steve Jobs",
+      "Stay hungry, stay foolish. – Steve Jobs",
+      "Code is poetry. – WordPress",
+      "Simplicity is the ultimate sophistication. – Leonardo da Vinci",
+      "Debugging is twice as hard as writing the code in the first place. – Brian Kernighan",
+      "Talk is cheap. Show me the code. – Linus Torvalds"
+    ];
+
+    function showRandomQuote() {
+      const quoteElement = document.getElementById('quote');
+      const randomIndex = Math.floor(Math.random() * quotes.length);
+      quoteElement.textContent = quotes[randomIndex];
+    }
+
+    // Show a quote on page load
+    showRandomQuote();
+  </script>
+</body>
+</html>
